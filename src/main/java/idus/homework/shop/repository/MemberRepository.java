@@ -3,9 +3,5 @@ package idus.homework.shop.repository;
 import idus.homework.shop.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
-public interface MemberRepository extends JpaRepository<Member, Long> {
-
-   Optional<Member> findByEmail(String email);
+public interface MemberRepository extends JpaRepository<Member, String> {
 }
