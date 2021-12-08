@@ -12,3 +12,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+# JWT
+jwt:
+  secret: aWR1c2hvbWV3b3Jr
+  access-expired: 1800 # 30(분) - 단위 (초)
