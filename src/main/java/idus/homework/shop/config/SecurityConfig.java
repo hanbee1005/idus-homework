@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable().authorizeRequests()
                 // login 없이 접근 허용 하는 url
                 .antMatchers("/auth/**").permitAll()
                 // 그 외 모든 요청은 인증과정 필요
