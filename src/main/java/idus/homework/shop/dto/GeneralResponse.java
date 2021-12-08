@@ -1,7 +1,9 @@
 package idus.homework.shop.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class GeneralResponse {
 
     private int status;
