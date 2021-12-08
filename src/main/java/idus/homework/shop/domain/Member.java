@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Getter
@@ -16,9 +14,8 @@ import javax.persistence.Id;
 @Entity
 public class Member {
 
-    @Id @GeneratedValue
-    @Column(name = "member_id")
-    private Long id;
+    @Id
+    private String email;
 
     private String name;
 
@@ -27,8 +24,6 @@ public class Member {
     private String password;
 
     private String phoneNum;
-
-    private String email;
 
     private String gender;
 
