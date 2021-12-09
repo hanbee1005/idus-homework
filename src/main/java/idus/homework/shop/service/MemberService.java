@@ -2,10 +2,15 @@ package idus.homework.shop.service;
 
 import idus.homework.shop.domain.Member;
 import idus.homework.shop.dto.SearchMemberResponse;
+import idus.homework.shop.dto.SearchMemberWithLastOrder;
 import idus.homework.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,5 +34,18 @@ public class MemberService {
         }
 
         return null;
+    }
+
+    // 여러 회원 목록 조회
+    public List<SearchMemberWithLastOrder> findMembers(String word, Pageable pageable) {
+        List<Member> members = memberRepository.findAllByEmailContainsOrNameContains(word, word, pageable);
+
+        List<SearchMemberWithLastOrder> response = new ArrayList<>();
+        for (Member member : members) {
+            SearchMemberWithLastOrder searchedMember = new SearchMemberWithLastOrder(member);
+            response.add(searchedMember);
+        }
+
+        return response;
     }
 }
