@@ -1,9 +1,8 @@
 package idus.homework.shop.service;
 
 import idus.homework.shop.domain.Member;
-import idus.homework.shop.dto.SearchMemberListResponse;
-import idus.homework.shop.dto.SearchMemberResponse;
-import idus.homework.shop.dto.SearchMemberWithLastOrder;
+import idus.homework.shop.domain.Order;
+import idus.homework.shop.dto.*;
 import idus.homework.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +31,27 @@ public class MemberService {
                     .email(member.getEmail())
                     .gender(member.getGender())
                     .build();
+        }
+
+        return null;
+    }
+
+    // 단일 회원의 주문 목록 조회
+    public SearchOrderByEmailResponse findOrdersByEmail(String email) {
+        Member findMember = memberRepository.findById(email).orElse(null);
+
+        if (findMember != null) {
+            SearchOrderByEmailResponse response = SearchOrderByEmailResponse.builder()
+                    .email(findMember.getEmail())
+                    .name(findMember.getName())
+                    .build();
+
+            List<Order> orders = findMember.getOrders();
+            for (Order order : orders) {
+                response.getOrders().add(new SearchOrder(order));
+            }
+
+            return response;
         }
 
         return null;

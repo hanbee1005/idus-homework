@@ -1,10 +1,13 @@
 package idus.homework.shop.service;
 
 import idus.homework.shop.domain.Member;
+import idus.homework.shop.domain.Order;
 import idus.homework.shop.dto.MemberSignupRequest;
 import idus.homework.shop.dto.SearchMemberListResponse;
 import idus.homework.shop.dto.SearchMemberResponse;
+import idus.homework.shop.dto.SearchOrderByEmailResponse;
 import idus.homework.shop.repository.MemberRepository;
+import idus.homework.shop.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +19,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
@@ -26,6 +31,8 @@ class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+
+    @Autowired OrderRepository orderRepository;
 
     @BeforeEach
     void init() {
@@ -79,6 +86,26 @@ class MemberServiceTest {
     }
 
     @Test
+    @DisplayName("단일 회원 주문 목록 조회")
+    void findOrders() {
+        // given
+        makeOrders();
+        String email = "test@gmail.com";
+
+        List<Order> all = orderRepository.findAll();
+        for (Order order : all) {
+            log.info(order.getId());
+        }
+
+        // when
+//        SearchOrderByEmailResponse response = memberService.findOrdersByEmail(email);
+//
+//        // then
+//        assertThat(response.getEmail()).isEqualTo(email);
+//        assertThat(response.getOrders().size()).isEqualTo(2);
+    }
+
+    @Test
     @DisplayName("여러 회원 목록 조회")
     void findMemberList() {
         // given
@@ -92,6 +119,36 @@ class MemberServiceTest {
         assertThat(members.getMembers().size()).isEqualTo(2);
         assertThat(members.getMembers().get(0).getEmail()).contains(word);
         assertThat(members.getMembers().get(1).getEmail()).contains(word);
+    }
+
+    private void makeOrders() {
+        Order order1 = Order.builder()
+                .id("AAAAAA1234BB")
+                .itemName("노트북")
+                .build();
+
+        saveOrder(order1, "test@gmail.com");
+
+        Order order2 = Order.builder()
+                .id("BBBBBB1234CC")
+                .itemName("스텐드")
+                .build();
+
+        saveOrder(order2, "test@gmail.com");
+
+        Order order3 = Order.builder()
+                .id("CCCCCC1234DD")
+                .itemName("노트북")
+                .build();
+
+        saveOrder(order3, "hong@gmail.com");
+    }
+
+    private void saveOrder(Order order, String email) {
+        Member member = memberRepository.findById(email).get();
+        member.addOrder(order);
+
+        orderRepository.save(order);
     }
 
 }

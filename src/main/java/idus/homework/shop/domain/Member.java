@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -27,6 +31,9 @@ public class Member {
 
     private String gender;
 
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
     @Builder
     public Member(MemberSignupRequest request) {
         name = request.getName();
@@ -35,6 +42,11 @@ public class Member {
         phoneNum = request.getPhoneNum();
         email = request.getEmail();
         gender = request.getGender();
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+        order.setMember(this);
     }
 
     // 비밀번호 암호화
