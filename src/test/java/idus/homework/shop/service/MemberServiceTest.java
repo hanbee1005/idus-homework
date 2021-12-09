@@ -2,8 +2,8 @@ package idus.homework.shop.service;
 
 import idus.homework.shop.domain.Member;
 import idus.homework.shop.dto.MemberSignupRequest;
+import idus.homework.shop.dto.SearchMemberListResponse;
 import idus.homework.shop.dto.SearchMemberResponse;
-import idus.homework.shop.dto.SearchMemberWithLastOrder;
 import idus.homework.shop.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,9 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.awt.print.Pageable;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -89,12 +86,12 @@ class MemberServiceTest {
         PageRequest pageRequest = PageRequest.of(0, 2);
 
         // when
-        List<SearchMemberWithLastOrder> members = memberService.findMembers(word, pageRequest);
+        SearchMemberListResponse members = memberService.findMembers(word, pageRequest);
 
         // then
-        assertThat(members.size()).isEqualTo(2);
-        assertThat(members.get(0).getEmail()).contains(word);
-        assertThat(members.get(1).getEmail()).contains(word);
+        assertThat(members.getMembers().size()).isEqualTo(2);
+        assertThat(members.getMembers().get(0).getEmail()).contains(word);
+        assertThat(members.getMembers().get(1).getEmail()).contains(word);
     }
 
 }

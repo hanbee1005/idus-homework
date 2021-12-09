@@ -12,8 +12,6 @@ public class SearchMemberWithLastOrder {
 
     private String nickname;
 
-    private String password;
-
     private String phoneNum;
 
     private String gender;
@@ -28,7 +26,6 @@ public class SearchMemberWithLastOrder {
         email = member.getEmail();
         name = member.getName();
         nickname = member.getNickname();
-        password = member.getPassword();
         phoneNum = member.getPhoneNum();
         gender = member.getGender();
     }

@@ -1,6 +1,7 @@
 package idus.homework.shop.service;
 
 import idus.homework.shop.domain.Member;
+import idus.homework.shop.dto.SearchMemberListResponse;
 import idus.homework.shop.dto.SearchMemberResponse;
 import idus.homework.shop.dto.SearchMemberWithLastOrder;
 import idus.homework.shop.repository.MemberRepository;
@@ -37,7 +38,7 @@ public class MemberService {
     }
 
     // 여러 회원 목록 조회
-    public List<SearchMemberWithLastOrder> findMembers(String word, Pageable pageable) {
+    public SearchMemberListResponse findMembers(String word, Pageable pageable) {
         List<Member> members = memberRepository.findAllByEmailContainsOrNameContains(word, word, pageable);
 
         List<SearchMemberWithLastOrder> response = new ArrayList<>();
@@ -46,6 +47,6 @@ public class MemberService {
             response.add(searchedMember);
         }
 
-        return response;
+        return new SearchMemberListResponse(response);
     }
 }
