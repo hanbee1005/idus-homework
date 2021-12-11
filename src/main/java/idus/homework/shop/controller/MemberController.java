@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "[002] Member", description = "회원 조회")
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -39,7 +39,7 @@ public class MemberController {
             @ApiResponse(responseCode = "200",
                     content = @Content(schema = @Schema(implementation = SearchMemberListResponse.class)))
     })
-    @GetMapping("list")
+    @GetMapping()
     public ResponseEntity<?> searchMemberList(
             @Parameter(description = "이메일 or 이름", example = "@gmail.com") @RequestParam String word,
             @Parameter(description = "페이지", example = "0") @RequestParam int page,

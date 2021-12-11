@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "[003] Order", description = "주문 조회")
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -29,7 +29,7 @@ public class OrderController {
             @ApiResponse(responseCode = "200",
                     content = @Content(schema = @Schema(implementation = SearchOrderByEmailResponse.class)))
     })
-    @GetMapping("list")
+    @GetMapping()
     public ResponseEntity<?> searchOrdersByEmail(@Parameter(description = "이메일", example = "test@gmail.com") @RequestParam String email) {
         return ResponseEntity.ok(memberService.findOrdersByEmail(email));
     }
