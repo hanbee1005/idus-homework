@@ -28,7 +28,9 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public GeneralResponse signup(MemberSignupRequest request) {
-        // TODO: Validation Check
+        memberRepository.findById(request.getEmail()).ifPresent(member -> {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        });
 
         Member member = Member.builder().request(request).build();
         member.encryptPassword(passwordEncoder);
