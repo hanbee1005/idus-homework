@@ -10,6 +10,6 @@ public class JwtRequest {
     @Schema(description = "이메일", example = "test@gmail.com")
     private String email;
 
-    @Schema(description = "비밀번호", example = "abcd1234ef")
+    @Schema(description = "비밀번호", example = "Abcd1234!@")
     private String password;
 }
