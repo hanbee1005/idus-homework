@@ -32,8 +32,7 @@ public class Order {
         this.payDt = LocalDateTime.now();
     }
 
-    public void addMember(Member member) {
+    public void setMember(Member member) {
         this.member = member;
-        this.member.getOrders().add(this);
     }
 }

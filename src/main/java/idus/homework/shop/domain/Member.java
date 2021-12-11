@@ -43,6 +43,11 @@ public class Member {
         gender = request.getGender();
     }
 
+    public void addOrder(Order order) {
+        orders.add(order);
+        order.setMember(this);
+    }
+
     // 비밀번호 암호화
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);

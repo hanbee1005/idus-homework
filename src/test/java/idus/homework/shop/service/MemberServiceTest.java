@@ -141,7 +141,7 @@ class MemberServiceTest {
 
     private void saveOrder(Order order, String email) {
         Member member = memberRepository.findById(email).get();
-        order.addMember(member);
+        member.addOrder(order);
 
         orderRepository.save(order);
     }
