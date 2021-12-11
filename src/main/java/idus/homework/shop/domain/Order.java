@@ -32,7 +32,6 @@ public class Order extends BaseEntity {
         this.itemName = itemName;
         this.payDt = LocalDateTime.now();
         setCreatedBy(email);
-        setCreatedDate(LocalDateTime.now());
     }
     
     private void makeRandomOrderId() {

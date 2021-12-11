@@ -41,6 +41,7 @@ public class Member extends BaseEntity {
         phoneNum = request.getPhoneNum();
         email = request.getEmail();
         gender = request.getGender();
+        setCreatedBy(email);
     }
 
     public void addOrder(Order order) {

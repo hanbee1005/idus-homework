@@ -19,8 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
@@ -118,29 +116,29 @@ class MemberServiceTest {
 
     private void makeOrders() {
         Order order1 = Order.builder()
-                .id("AAAAAA1234BB")
                 .itemName("노트북")
+                .email("test@gmail.com")
                 .build();
 
-        saveOrder(order1, "test@gmail.com");
+        saveOrder(order1);
 
         Order order2 = Order.builder()
-                .id("BBBBBB1234CC")
                 .itemName("스텐드")
+                .email("test@gmail.com")
                 .build();
 
-        saveOrder(order2, "test@gmail.com");
+        saveOrder(order2);
 
         Order order3 = Order.builder()
-                .id("CCCCCC1234DD")
                 .itemName("노트북")
+                .email("hong@gmail.com")
                 .build();
 
-        saveOrder(order3, "hong@gmail.com");
+        saveOrder(order3);
     }
 
-    private void saveOrder(Order order, String email) {
-        Member member = memberRepository.findById(email).get();
+    private void saveOrder(Order order) {
+        Member member = memberRepository.findById(order.getCreatedBy()).get();
         member.addOrder(order);
 
         orderRepository.save(order);
