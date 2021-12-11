@@ -32,11 +32,11 @@ public class OrderServiceTest {
     @BeforeEach
     void init() {
         MemberSignupRequest request = new MemberSignupRequest();
-        request.setName("테스터");
+        request.setName("테스터1");
         request.setNickname("tester");
         request.setPassword("1234");
         request.setPhoneNum("01012345678");
-        request.setEmail("test@gmail.com");
+        request.setEmail("test1@gmail.com");
         request.setGender("F");
 
         Member member = Member.builder().request(request).build();
@@ -49,7 +49,7 @@ public class OrderServiceTest {
     @DisplayName("단일 회원 주문 목록 조회")
     void findOrders() {
         // given
-        String email = "test@gmail.com";
+        String email = "test1@gmail.com";
 
         // when
         SearchOrderByEmailResponse response = orderService.findOrdersByEmail(email);
@@ -62,24 +62,17 @@ public class OrderServiceTest {
     private void makeOrders() {
         Order order1 = Order.builder()
                 .itemName("노트북")
-                .email("test@gmail.com")
+                .email("test1@gmail.com")
                 .build();
 
         saveOrder(order1);
 
         Order order2 = Order.builder()
                 .itemName("스텐드")
-                .email("test@gmail.com")
+                .email("test1@gmail.com")
                 .build();
 
         saveOrder(order2);
-
-        Order order3 = Order.builder()
-                .itemName("노트북")
-                .email("hong@gmail.com")
-                .build();
-
-        saveOrder(order3);
     }
 
     private void saveOrder(Order order) {
