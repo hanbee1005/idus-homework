@@ -32,6 +32,7 @@ public class Order extends BaseEntity {
         this.itemName = itemName;
         this.payDt = LocalDateTime.now();
         setCreatedBy(email);
+        setCreatedDate(LocalDateTime.now());
     }
     
     private void makeRandomOrderId() {
@@ -42,7 +43,7 @@ public class Order extends BaseEntity {
             // rnd.nextBoolean() 는 랜덤으로 true, false 를 리턴.
             // true일 시 랜덤 한 소문자를, false 일 시 랜덤 한 숫자를 StringBuffer 에 append 한다.
             if(rnd.nextBoolean()){
-                buf.append((char)((int)(rnd.nextInt(26))+65));
+                buf.append((char)(rnd.nextInt(26) + 65));
             }else{
                 buf.append((rnd.nextInt(10)));
             }

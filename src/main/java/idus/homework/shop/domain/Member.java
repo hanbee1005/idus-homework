@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,6 @@ public class Member extends BaseEntity {
 
     private String gender;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
-
     @Builder
     public Member(MemberSignupRequest request) {
         name = request.getName();
@@ -42,11 +40,7 @@ public class Member extends BaseEntity {
         email = request.getEmail();
         gender = request.getGender();
         setCreatedBy(email);
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-        order.setMember(this);
+        setCreatedDate(LocalDateTime.now());
     }
 
     // 비밀번호 암호화
