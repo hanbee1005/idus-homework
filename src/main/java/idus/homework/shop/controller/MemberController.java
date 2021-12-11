@@ -50,7 +50,8 @@ public class MemberController {
     })
     @GetMapping()
     public ResponseEntity<?> searchMemberList(
-            @Parameter(description = "이메일 or 이름", example = "@gmail.com") @RequestParam String word,
+            @Parameter(description = "이메일 or 이름", example = "@gmail.com")
+                @RequestParam(required = false, defaultValue = "") String word,
             @Parameter(description = "페이지", example = "0") @RequestParam int page,
             @Parameter(description = "크기", example = "2") @RequestParam int size) {
         return ResponseEntity.ok(memberService.findMembers(word, PageRequest.of(page, size)));
