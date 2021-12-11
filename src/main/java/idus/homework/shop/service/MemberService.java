@@ -51,4 +51,8 @@ public class MemberService {
 
         return new SearchMemberListResponse(response);
     }
+
+    public Member findByEmail(String email) {
+        return memberRepository.findById(email).orElse(null);
+    }
 }
