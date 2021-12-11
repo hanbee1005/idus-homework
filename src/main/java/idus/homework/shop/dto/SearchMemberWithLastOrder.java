@@ -1,6 +1,7 @@
 package idus.homework.shop.dto;
 
 import idus.homework.shop.domain.Member;
+import idus.homework.shop.domain.Order;
 import lombok.Getter;
 
 @Getter
@@ -16,17 +17,17 @@ public class SearchMemberWithLastOrder {
 
     private String gender;
 
-    private String orderId;
+    private OrderResponse lastOrder;
 
-    private String itemName;
-
-    private String payDt;
-
-    public SearchMemberWithLastOrder(Member member) {
+    public SearchMemberWithLastOrder(Member member, Order order) {
         email = member.getEmail();
         name = member.getName();
         nickname = member.getNickname();
         phoneNum = member.getPhoneNum();
         gender = member.getGender();
+
+        if (order != null) {
+            lastOrder = new OrderResponse(order);
+        }
     }
 }

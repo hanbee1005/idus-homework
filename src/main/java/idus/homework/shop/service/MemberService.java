@@ -4,6 +4,7 @@ import idus.homework.shop.domain.Member;
 import idus.homework.shop.domain.Order;
 import idus.homework.shop.dto.*;
 import idus.homework.shop.repository.MemberRepository;
+import idus.homework.shop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final OrderRepository orderRepository;
 
     // 단일 회원 상세 정보 조회
     public SearchMemberResponse findMemberById(String email) {
@@ -63,7 +65,8 @@ public class MemberService {
 
         List<SearchMemberWithLastOrder> response = new ArrayList<>();
         for (Member member : members) {
-            SearchMemberWithLastOrder searchedMember = new SearchMemberWithLastOrder(member);
+            Order lastOrder = orderRepository.findFirstByMemberEmailOrderByCreatedDateDesc(member.getEmail());
+            SearchMemberWithLastOrder searchedMember = new SearchMemberWithLastOrder(member, lastOrder);
             response.add(searchedMember);
         }
 
