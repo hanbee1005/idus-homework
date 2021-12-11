@@ -1,7 +1,7 @@
 package idus.homework.shop.controller;
 
 import idus.homework.shop.dto.SearchOrderByEmailResponse;
-import idus.homework.shop.service.MemberService;
+import idus.homework.shop.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final MemberService memberService;
+    private final OrderService orderService;
 
     @Operation(description = "단일 회원 주문 목록 조회")
     @ApiResponses(value = {
@@ -31,6 +31,6 @@ public class OrderController {
     })
     @GetMapping()
     public ResponseEntity<?> searchOrdersByEmail(@Parameter(description = "이메일", example = "test@gmail.com") @RequestParam String email) {
-        return ResponseEntity.ok(memberService.findOrdersByEmail(email));
+        return ResponseEntity.ok(orderService.findOrdersByEmail(email));
     }
 }

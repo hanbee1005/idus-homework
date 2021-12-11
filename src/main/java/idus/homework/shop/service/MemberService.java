@@ -38,27 +38,6 @@ public class MemberService {
         return null;
     }
 
-    // 단일 회원의 주문 목록 조회
-    public SearchOrderByEmailResponse findOrdersByEmail(String email) {
-        Member findMember = memberRepository.findById(email).orElse(null);
-
-        if (findMember != null) {
-            SearchOrderByEmailResponse response = SearchOrderByEmailResponse.builder()
-                    .email(findMember.getEmail())
-                    .name(findMember.getName())
-                    .build();
-
-            List<Order> orders = findMember.getOrders();
-            for (Order order : orders) {
-                response.getOrders().add(new SearchOrder(order));
-            }
-
-            return response;
-        }
-
-        return null;
-    }
-
     // 여러 회원 목록 조회
     public SearchMemberListResponse findMembers(String word, Pageable pageable) {
         List<Member> members = memberRepository.findAllByEmailContainsOrNameContains(word, word, pageable);
