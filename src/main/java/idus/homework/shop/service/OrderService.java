@@ -1,8 +1,6 @@
 package idus.homework.shop.service;
 
-import idus.homework.shop.domain.Member;
 import idus.homework.shop.domain.Order;
-import idus.homework.shop.dto.SearchOrder;
 import idus.homework.shop.dto.SearchOrderByEmailResponse;
 import idus.homework.shop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
