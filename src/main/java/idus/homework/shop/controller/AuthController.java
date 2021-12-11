@@ -2,6 +2,7 @@ package idus.homework.shop.controller;
 
 import idus.homework.shop.dto.GeneralResponse;
 import idus.homework.shop.dto.JwtRequest;
+import idus.homework.shop.dto.JwtResponse;
 import idus.homework.shop.dto.MemberSignupRequest;
 import idus.homework.shop.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,15 +43,15 @@ public class AuthController {
 
     @Operation(description = "로그인")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "로그인 성공 (test@gmail.com)",
-                    content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
+            @ApiResponse(responseCode = "200", description = "로그인 성공",
+                    content = @Content(schema = @Schema(implementation = JwtResponse.class)))
     })
     @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody JwtRequest request) {
         try {
             return ResponseEntity.ok(authService.login(request));
         } catch (Exception e) {
-            return new ResponseEntity<>(new GeneralResponse(404, "no member"), HttpStatus.OK);
+            return new ResponseEntity<>(new GeneralResponse(401, e.getMessage()), HttpStatus.UNAUTHORIZED);
         }
     }
 }
