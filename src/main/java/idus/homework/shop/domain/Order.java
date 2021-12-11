@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@Table(name = "orders")
 @NoArgsConstructor
 public class Order {
 
@@ -31,7 +32,8 @@ public class Order {
         this.payDt = LocalDateTime.now();
     }
 
-    public void setMember(Member member) {
+    public void addMember(Member member) {
         this.member = member;
+        this.member.getOrders().add(this);
     }
 }

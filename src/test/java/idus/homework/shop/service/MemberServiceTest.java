@@ -92,17 +92,12 @@ class MemberServiceTest {
         makeOrders();
         String email = "test@gmail.com";
 
-        List<Order> all = orderRepository.findAll();
-        for (Order order : all) {
-            log.info(order.getId());
-        }
-
         // when
-//        SearchOrderByEmailResponse response = memberService.findOrdersByEmail(email);
-//
-//        // then
-//        assertThat(response.getEmail()).isEqualTo(email);
-//        assertThat(response.getOrders().size()).isEqualTo(2);
+        SearchOrderByEmailResponse response = memberService.findOrdersByEmail(email);
+
+        // then
+        assertThat(response.getEmail()).isEqualTo(email);
+        assertThat(response.getOrders().size()).isEqualTo(2);
     }
 
     @Test
@@ -146,7 +141,7 @@ class MemberServiceTest {
 
     private void saveOrder(Order order, String email) {
         Member member = memberRepository.findById(email).get();
-        member.addOrder(order);
+        order.addMember(member);
 
         orderRepository.save(order);
     }
