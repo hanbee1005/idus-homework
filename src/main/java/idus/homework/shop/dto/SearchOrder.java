@@ -1,9 +1,11 @@
 package idus.homework.shop.dto;
 
 import idus.homework.shop.domain.Order;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class SearchOrder {
 
     private String id;
