@@ -8,10 +8,10 @@ import lombok.Getter;
 @Schema(description = "일반 응답 객체")
 public class GeneralResponse {
 
-    @Schema(description = "status", example = "200")
+    @Schema(description = "status")
     private int status;
 
-    @Schema(description = "message", example = "성공")
+    @Schema(description = "message")
     private String message;
 
     @Builder

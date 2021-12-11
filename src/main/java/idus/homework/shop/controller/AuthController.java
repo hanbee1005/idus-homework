@@ -44,7 +44,9 @@ public class AuthController {
     @Operation(description = "로그인")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "로그인 성공",
-                    content = @Content(schema = @Schema(implementation = JwtResponse.class)))
+                    content = @Content(schema = @Schema(implementation = JwtResponse.class))),
+            @ApiResponse(responseCode = "401", description = "로그인 실패",
+                    content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
     })
     @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody JwtRequest request) {
