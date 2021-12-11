@@ -1,5 +1,6 @@
 package idus.homework.shop.controller;
 
+import idus.homework.shop.dto.GeneralResponse;
 import idus.homework.shop.dto.SearchMemberListResponse;
 import idus.homework.shop.dto.SearchMemberResponse;
 import idus.homework.shop.service.MemberService;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +28,19 @@ public class MemberController {
 
     @Operation(description = "단일 회원 상세 정보 조회")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    content = @Content(schema = @Schema(implementation = SearchMemberResponse.class)))
+            @ApiResponse(responseCode = "200", description = "회원 상세 정보 조회 성공",
+                    content = @Content(schema = @Schema(implementation = SearchMemberResponse.class))),
+            @ApiResponse(responseCode = "400", description = "회원이 존재하지 않습니다.",
+                    content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
     })
     @GetMapping("{email}")
     public ResponseEntity<?> searchMember(@Schema(description = "이메일", example = "test@gmail.com") @PathVariable String email) {
-        return ResponseEntity.ok(memberService.findMemberById(email));
+        try {
+            return ResponseEntity.ok(memberService.findMemberById(email));
+        } catch(Exception e) {
+            return new ResponseEntity<>(new GeneralResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @Operation(description = "여러 회원 목록 조회")

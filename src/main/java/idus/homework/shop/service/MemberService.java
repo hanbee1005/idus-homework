@@ -25,17 +25,17 @@ public class MemberService {
     public SearchMemberResponse findMemberById(String email) {
         Member member = memberRepository.findById(email).orElse(null);
 
-        if (member != null) {
-            return SearchMemberResponse.builder()
-                    .name(member.getName())
-                    .nickname(member.getNickname())
-                    .phoneNum(member.getPhoneNum())
-                    .email(member.getEmail())
-                    .gender(member.getGender())
-                    .build();
+        if (member == null) {
+            throw new IllegalStateException("회원이 존재하지 않습니다.");
         }
 
-        return null;
+        return SearchMemberResponse.builder()
+                .name(member.getName())
+                .nickname(member.getNickname())
+                .phoneNum(member.getPhoneNum())
+                .email(member.getEmail())
+                .gender(member.getGender())
+                .build();
     }
 
     // 여러 회원 목록 조회
