@@ -30,7 +30,7 @@ class AuthServiceTest {
         request.setNickname("tester");
         request.setPassword("1234");
         request.setPhoneNum("01012345678");
-        request.setEmail("test@gmail.com");
+        request.setEmail("test1@gmail.com");
         request.setGender("F");
 
         // when
