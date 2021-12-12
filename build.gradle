@@ -47,6 +47,9 @@ dependencies {
     implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
 
+    // json
+    implementation 'org.json:json:20190722'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
