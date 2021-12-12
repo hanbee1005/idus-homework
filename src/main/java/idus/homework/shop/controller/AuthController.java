@@ -15,10 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -74,5 +71,18 @@ public class AuthController {
         } catch (Exception e) {
             return new ResponseEntity<>(new GeneralResponse(401, e.getMessage()), HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @Operation(description = "로그아웃")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "로그아웃 성공",
+                    content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
+    })
+    @GetMapping(value = "logout", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> logout() {
+        // TODO: 로그아웃 기능 구현
+        // JWT Token을 사용했기 때문에 Redis나 DB에 token을 넣어서 관리하고
+        // 로그아웃 시 토큰을 지우는 방식으로 기능 구현
+        return new ResponseEntity<>(new GeneralResponse(200, "로그아웃 성공"), HttpStatus.OK);
     }
 }
