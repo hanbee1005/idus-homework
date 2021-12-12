@@ -34,7 +34,7 @@ public class MemberController {
                     content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
     })
     @GetMapping("{email}")
-    public ResponseEntity<?> searchMember(@Schema(description = "이메일", example = "test@gmail.com") @PathVariable String email) {
+    public ResponseEntity<?> searchMember(@Parameter(description = "이메일", example = "test@gmail.com") @PathVariable String email) {
         try {
             return ResponseEntity.ok(memberService.findMemberById(email));
         } catch(Exception e) {
