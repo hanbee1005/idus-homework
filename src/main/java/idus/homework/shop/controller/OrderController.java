@@ -29,7 +29,9 @@ public class OrderController {
     @Operation(description = "단일 회원 주문 목록 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    content = @Content(schema = @Schema(implementation = SearchOrderByEmailResponse.class)))
+                    content = @Content(schema = @Schema(implementation = SearchOrderByEmailResponse.class))),
+            @ApiResponse(responseCode = "400",
+                    content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
     })
     @GetMapping()
     public ResponseEntity<?> searchOrdersByEmail(@Parameter(description = "이메일", example = "test@gmail.com") @RequestParam String email) {

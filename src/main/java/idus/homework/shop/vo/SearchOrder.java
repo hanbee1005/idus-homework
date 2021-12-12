@@ -1,12 +1,12 @@
-package idus.homework.shop.dto;
+package idus.homework.shop.vo;
 
 import idus.homework.shop.domain.Order;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @Schema(description = "주문 정보")
 public class SearchOrder {
 

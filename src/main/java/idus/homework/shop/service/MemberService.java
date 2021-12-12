@@ -5,6 +5,7 @@ import idus.homework.shop.domain.Order;
 import idus.homework.shop.dto.*;
 import idus.homework.shop.repository.MemberRepository;
 import idus.homework.shop.repository.OrderRepository;
+import idus.homework.shop.vo.SearchMemberWithLastOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,8 +46,7 @@ public class MemberService {
         List<SearchMemberWithLastOrder> response = new ArrayList<>();
         for (Member member : members) {
             Order lastOrder = orderRepository.findFirstByMemberEmailOrderByCreatedDateDesc(member.getEmail());
-            SearchMemberWithLastOrder searchedMember = new SearchMemberWithLastOrder(member, lastOrder);
-            response.add(searchedMember);
+            response.add(new SearchMemberWithLastOrder(member, lastOrder));
         }
 
         return new SearchMemberListResponse(response);

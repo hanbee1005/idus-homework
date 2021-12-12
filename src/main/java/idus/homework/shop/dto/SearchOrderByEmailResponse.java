@@ -1,6 +1,7 @@
 package idus.homework.shop.dto;
 
 import idus.homework.shop.domain.Order;
+import idus.homework.shop.vo.SearchOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
