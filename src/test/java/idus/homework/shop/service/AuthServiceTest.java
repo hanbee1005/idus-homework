@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
@@ -26,11 +27,11 @@ class AuthServiceTest {
     void signup() {
         // given
         MemberSignupRequest request = new MemberSignupRequest();
-        request.setName("테스터1");
+        request.setName("테스터code");
         request.setNickname("tester");
-        request.setPassword("1234");
+        request.setPassword("Abcd1234!@");
         request.setPhoneNum("01012345678");
-        request.setEmail("test1@gmail.com");
+        request.setEmail("testcode@gmail.com");
         request.setGender("F");
 
         // when
@@ -41,9 +42,33 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("회원 가입 조건 확인")
-    void validationCheck() {
+    @DisplayName("회원 가입 실패 - 중복 회원")
+    void duplicateMember() {
+        // given
+        MemberSignupRequest request1 = new MemberSignupRequest();
+        request1.setName("테스터code");
+        request1.setNickname("tester");
+        request1.setPassword("Abcd1234!@");
+        request1.setPhoneNum("01012345678");
+        request1.setEmail("testcode@gmail.com");
+        request1.setGender("F");
 
+        MemberSignupRequest request2 = new MemberSignupRequest();
+        request2.setName("code테스터");
+        request2.setNickname("tester");
+        request2.setPassword("Abcd1234!@");
+        request2.setPhoneNum("01012345678");
+        request2.setEmail("testcode@gmail.com");
+        request2.setGender("M");
+
+        // when
+        GeneralResponse response = authService.signup(request1);
+        assertThat(response.getStatus()).isEqualTo(200);
+
+        // then
+        assertThrows(IllegalStateException.class, () -> {
+            authService.signup(request2);
+        });
     }
 
 }
