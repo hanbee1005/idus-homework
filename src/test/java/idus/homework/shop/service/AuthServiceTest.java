@@ -66,9 +66,7 @@ class AuthServiceTest {
         assertThat(response.getStatus()).isEqualTo(200);
 
         // then
-        assertThrows(IllegalStateException.class, () -> {
-            authService.signup(request2);
-        });
+        assertThrows(IllegalStateException.class, () -> authService.signup(request2));
     }
 
 }
