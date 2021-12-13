@@ -13,10 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "[003] Order", description = "주문 조회")
 @RestController
@@ -40,5 +37,18 @@ public class OrderController {
         } catch (Exception e) {
             return new ResponseEntity<>(new GeneralResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Operation(description = "주문하기")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = GeneralResponse.class)))
+    })
+    @PostMapping()
+    public ResponseEntity<?> saveOrder(@Parameter(description = "제품명", example = "노트북") @RequestParam String itemName) {
+        return new ResponseEntity<>(
+                new GeneralResponse(200, "주문번호: " + orderService.saveOrder(itemName)),
+                HttpStatus.BAD_REQUEST
+        );
     }
 }
