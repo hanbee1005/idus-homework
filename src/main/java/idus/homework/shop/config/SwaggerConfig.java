@@ -41,8 +41,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
     String[] loginPaths = {"/auth/**"};
-    String[] memberPaths = {"/member/**"};
-    String[] orderPaths = {"/order/**"};
+    String[] memberPaths = {"/members/**"};
+    String[] orderPaths = {"/orders/**"};
     String[] allPaths = {"/**"};
 
     @Bean
